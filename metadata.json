@@ -1,0 +1,8 @@
+{
+  "name": "NutriAI - Smart Nutrition & Fitness",
+  "description": "A mobile-first nutrition and fitness application with AI integration for voice and image meal logging, and personalized recommendations. The app guides users through an empathetic onboarding process to tailor their experience.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
