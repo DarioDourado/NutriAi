@@ -215,7 +215,7 @@ const ConfirmationStep: React.FC = () => (
 // --- Main Onboarding Component ---
 
 interface OnboardingProps {
-  onComplete: () => void;
+  onComplete: (data: OnboardingData) => void;
 }
 
 export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
@@ -243,7 +243,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
   const handleFinish = () => {
       // Simulate finalization
       setTimeout(() => {
-          onComplete();
+          onComplete(data);
       }, 2000);
   };
   

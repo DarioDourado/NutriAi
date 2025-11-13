@@ -10,32 +10,9 @@ const StatCard: React.FC<{ value: string; label: string; color: string }> = ({ v
   </div>
 );
 
-const BottomNav: React.FC = () => {
-    const navItems = [
-        { icon: <HomeIcon className="w-7 h-7" />, label: "Início", active: true },
-        { icon: <TargetIcon className="w-7 h-7" />, label: "Objetivos" },
-        { icon: <ChatIcon className="w-7 h-7" />, label: "Assistente" },
-        { icon: <UserIcon className="w-7 h-7" />, label: "Perfil" },
-    ];
-
-    return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-5px_15px_-5px_rgba(0,0,0,0.1)] max-w-md mx-auto rounded-t-2xl">
-            <div className="flex justify-around items-center h-20">
-                {navItems.map((item, index) => (
-                    <div key={index} className={`flex flex-col items-center space-y-1 ${item.active ? 'text-[#1E8E5A]' : 'text-gray-400'}`}>
-                        {item.icon}
-                        <span className="text-xs font-medium">{item.label}</span>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-
 export const Dashboard: React.FC = () => {
   return (
-    <div className="bg-[#F8FAFC] min-h-screen pb-24">
+    <div className="bg-[#F8FAFC]">
       <header className="p-6">
         <h1 className="text-3xl font-bold text-[#0F172A]">Resumo Diário</h1>
         <p className="text-lg text-[#475569]">Olá! Veja como está o seu progresso hoje.</p>
@@ -99,7 +76,6 @@ export const Dashboard: React.FC = () => {
 
       </main>
 
-      <BottomNav />
     </div>
   );
 };
