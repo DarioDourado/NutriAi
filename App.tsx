@@ -3,19 +3,27 @@ import React, { useState } from 'react';
 import { Onboarding } from './components/Onboarding';
 import { Dashboard } from './components/Dashboard';
 import { Profile } from './components/Profile';
+import { Assistant } from './components/Assistant';
 import { BottomNav } from './components/Navigation';
 import { OnboardingData } from './types';
 
 export type View = 'dashboard' | 'goals' | 'assistant' | 'profile';
+export type AssistantMode = 'chat' | 'voice' | 'photo';
 
 function App() {
   const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null);
   const [currentView, setCurrentView] = useState<View>('dashboard');
+  const [assistantMode, setAssistantMode] = useState<AssistantMode>('chat');
 
   const handleOnboardingComplete = (data: OnboardingData) => {
     setOnboardingData(data);
   };
   
+  const handleNavigate = (view: View, mode: AssistantMode = 'chat') => {
+    setAssistantMode(mode);
+    setCurrentView(view);
+  };
+
   const isOnboardingComplete = onboardingData !== null;
 
   const renderView = () => {
@@ -23,12 +31,13 @@ function App() {
 
     switch (currentView) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigate={handleNavigate} />;
+      case 'assistant':
+        return <Assistant onboardingData={onboardingData} initialMode={assistantMode} onModeReset={() => setAssistantMode('chat')} />;
       case 'profile':
         return <Profile onboardingData={onboardingData} />;
-      // Add other views here later
       default:
-        return <Dashboard />;
+        return <Dashboard onNavigate={handleNavigate} />;
     }
   };
 
@@ -37,10 +46,10 @@ function App() {
       <div className="h-full w-full overflow-y-auto">
         {isOnboardingComplete ? (
           <>
-            <div className="pb-24">
+            <div className="pb-24 h-full">
               {renderView()}
             </div>
-            <BottomNav activeView={currentView} onViewChange={setCurrentView} />
+            <BottomNav activeView={currentView} onViewChange={(view) => handleNavigate(view)} />
           </>
         ) : (
           <Onboarding onComplete={handleOnboardingComplete} />

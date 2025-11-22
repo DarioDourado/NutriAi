@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card } from './UI';
 import { HomeIcon, TargetIcon, ChatIcon, UserIcon, CameraIcon, MicIcon, PlusIcon } from './Icons';
+import { View, AssistantMode } from '../App';
 
 const StatCard: React.FC<{ value: string; label: string; color: string }> = ({ value, label, color }) => (
   <div className="flex flex-col items-center">
@@ -10,7 +11,11 @@ const StatCard: React.FC<{ value: string; label: string; color: string }> = ({ v
   </div>
 );
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+    onNavigate: (view: View, mode?: AssistantMode) => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   return (
     <div className="bg-[#F8FAFC]">
       <header className="p-6">
@@ -40,15 +45,24 @@ export const Dashboard: React.FC = () => {
             <h2 className="text-2xl font-bold text-[#0F172A] mb-2">Registar Refeição</h2>
             <p className="text-[#475569] mb-4">Adicione a sua última refeição de forma rápida.</p>
             <div className="flex justify-center items-center space-x-4">
-                 <button className="flex flex-col items-center justify-center w-24 h-24 bg-[#2563EB] text-white rounded-2xl shadow-lg transition-transform transform active:scale-95">
+                 <button 
+                    onClick={() => onNavigate('assistant', 'voice')}
+                    className="flex flex-col items-center justify-center w-24 h-24 bg-[#2563EB] text-white rounded-2xl shadow-lg transition-transform transform active:scale-95"
+                 >
                     <MicIcon className="w-8 h-8 mb-1"/>
                     <span className="font-semibold text-sm">Voz</span>
                 </button>
-                 <button className="flex flex-col items-center justify-center w-24 h-24 bg-[#2563EB] text-white rounded-2xl shadow-lg transition-transform transform active:scale-95">
+                 <button 
+                    onClick={() => onNavigate('assistant', 'photo')}
+                    className="flex flex-col items-center justify-center w-24 h-24 bg-[#2563EB] text-white rounded-2xl shadow-lg transition-transform transform active:scale-95"
+                 >
                     <CameraIcon className="w-8 h-8 mb-1"/>
                     <span className="font-semibold text-sm">Foto</span>
                 </button>
-                 <button className="flex flex-col items-center justify-center w-24 h-24 bg-white text-[#475569] border-2 border-gray-300 rounded-2xl shadow-lg transition-transform transform active:scale-95">
+                 <button 
+                    onClick={() => onNavigate('assistant', 'chat')}
+                    className="flex flex-col items-center justify-center w-24 h-24 bg-white text-[#475569] border-2 border-gray-300 rounded-2xl shadow-lg transition-transform transform active:scale-95"
+                 >
                     <PlusIcon className="w-8 h-8 mb-1"/>
                     <span className="font-semibold text-sm">Manual</span>
                 </button>
